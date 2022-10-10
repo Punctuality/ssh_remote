@@ -6,6 +6,7 @@ extern crate yaml_rust;
 use crate::cli::config_display::display_config;
 use crate::cli::selector::select_by_config;
 use crate::model::Config;
+use cli_clipboard::{ClipboardContext, ClipboardProvider};
 use std::collections::HashSet;
 use std::error::Error;
 use std::path::Path;
@@ -28,6 +29,7 @@ fn app() -> Result<(), String> {
     let args = env::args().collect::<Vec<String>>();
 
     let is_verbose = args.iter().find(|arg| *arg == "--verbose").is_some();
+    let is_dry = args.iter().find(|arg| *arg == "--dry").is_some();
 
     let path = Path::new("hostnames.yaml");
     let config = load_config(path)?;
@@ -39,6 +41,13 @@ fn app() -> Result<(), String> {
     let res_host = select_by_config(&config)?;
 
     let shell_command = format!("ssh {}", res_host);
+
+    if !is_dry {
+        let mut ctx = ClipboardContext::new().map_err(|err| err.to_string())?;
+
+        ctx.set_contents(shell_command.clone())
+            .map_err(|err| err.to_string())?
+    }
 
     Ok(println!("\n{}\n{}", "-".repeat(10), shell_command))
 }
