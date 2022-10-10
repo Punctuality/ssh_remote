@@ -1,11 +1,6 @@
-use crate::display_config;
 use crate::model::Config;
 use crate::model::Host;
-use std::fmt::{format, Display, Formatter};
-use std::fs::read_to_string;
 use std::io;
-use std::num::ParseIntError;
-use std::ops::Deref;
 use std::rc::Rc;
 use yaml_rust::Yaml;
 

@@ -1,5 +1,4 @@
 use crate::model::Config;
-use std::fmt::format;
 use yaml_rust::Yaml;
 
 fn offset_str(offset: usize) -> String {

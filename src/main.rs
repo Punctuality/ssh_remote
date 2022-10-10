@@ -7,12 +7,9 @@ use crate::cli::config_display::display_config;
 use crate::cli::selector::select_by_config;
 use crate::model::Config;
 use cli_clipboard::{ClipboardContext, ClipboardProvider};
-use std::collections::HashSet;
-use std::error::Error;
 use std::path::Path;
-use std::process::Command;
 use std::{env, fs};
-use yaml_rust::{Yaml, YamlEmitter, YamlLoader};
+use yaml_rust::{Yaml, YamlLoader};
 
 fn load_config(location: &Path) -> Result<Config, String> {
     let raw = fs::read_to_string(location).map_err(|e| e.to_string())?;
