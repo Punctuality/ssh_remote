@@ -2,6 +2,8 @@
 
 Simple tool to retrieve your ssh hosts using cli.
 
+> Written in Rust and is **BLAZINGLY FAST**
+
 ### Usage
 
 1. Touch file `hostnames.yaml` with simillar contents:
